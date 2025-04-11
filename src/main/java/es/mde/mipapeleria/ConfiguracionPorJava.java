@@ -16,12 +16,18 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.mde.entidades.Cliente;
+import es.mde.entidades.Cuaderno;
+import es.mde.entidades.Libro;
+import es.mde.rest.MixIns;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties"})
+@PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties" })
 @EnableJpaRepositories("${misRepositorios}") // leer valor de propiedades? pero solo para las entidades anotadas
 public class ConfiguracionPorJava {
 
@@ -38,11 +44,12 @@ public class ConfiguracionPorJava {
 		em.setJpaVendorAdapter(vendorAdapter);
 
 		em.setPackagesToScan(entidades); // leer valor de propiedades? pero solo para las entidades anotadas
-		em.setMappingResources("jpa/Perro.orm.xml", "jpa/Aparato.orm.xml"); //para escanear archivos xml...
+		em.setMappingResources("jpa/Perro.orm.xml", "jpa/Aparato.orm.xml"); // para escanear archivos xml...
 		// leerValorDePropiedades?
 
 		Properties jpaProperties = new Properties();
-		Arrays.asList("dialect", "show_sql", "hbm2ddl.auto", "enable_lazy_load_no_trans") //  leer valor de	para las entidades anotadas 
+		Arrays.asList("dialect", "show_sql", "hbm2ddl.auto", "enable_lazy_load_no_trans") // leer valor de para las
+																							// entidades anotadas
 				.stream().map(s -> "hibernate." + s)
 				.map(p -> new AbstractMap.SimpleEntry<String, String>(p, env.getProperty(p)))
 				.filter(e -> e.getValue() != null).forEach(e -> jpaProperties.put(e.getKey(), e.getValue()));
@@ -58,6 +65,17 @@ public class ConfiguracionPorJava {
 		System.err.println("----------------------------------");
 
 		return emf.createEntityManager();
+	}
+
+	@Bean
+	public ObjectMapper getObjectMapper() {
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.addMixIn(Cliente.class, MixIns.Clientes.class);
+		mapper.addMixIn(Libro.class, MixIns.Libros.class);
+		mapper.addMixIn(Cuaderno.class, MixIns.Cuadernos.class);
+
+		return mapper;
 	}
 
 }
