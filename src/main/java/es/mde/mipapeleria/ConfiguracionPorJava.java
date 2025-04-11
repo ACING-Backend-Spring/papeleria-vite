@@ -36,7 +36,7 @@ public class ConfiguracionPorJava {
 		em.setJpaVendorAdapter(vendorAdapter);
 
 		em.setPackagesToScan(entidades); // leer valor de propiedades? pero solo para las entidades anotadas
-		// em.setMappingResources("jpa/Usuario.orm.xml", "jpa/Cuaderno.orm.xml"); //para escanear archivos xml...
+		em.setMappingResources("jpa/Perro.orm.xml"); //para escanear archivos xml...
 		// leerValorDePropiedades?
 
 		Properties jpaProperties = new Properties();
