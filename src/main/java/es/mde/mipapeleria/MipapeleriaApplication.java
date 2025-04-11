@@ -60,6 +60,9 @@ public class MipapeleriaApplication {
 //		context.close();
 //		System.err.println("Está cerrándose la aplicación");
 
+		ProductoDAO productoDAO = context.getBean(ProductoDAO.class);
+		productoDAO.getProductosDeClientesEmpresa("gmail.com").stream().map(Producto::toString).forEach(log::error);
+
 	}
 
 	static Cliente generaCliente() {
