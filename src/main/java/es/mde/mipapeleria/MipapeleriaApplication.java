@@ -41,24 +41,24 @@ public class MipapeleriaApplication {
 //		productos.stream().map(Producto::toString).forEach(log::info);
 
 		// Creando productos con cliente
-		ProductoDAO productoDAO = context.getBean(ProductoDAO.class);
-		ClienteDAO clienteDAO = context.getBean(ClienteDAO.class);
-		Cliente cliente1 = clienteDAO.save(generaCliente());
-		Cliente cliente2 = clienteDAO.save(generaCliente());
-		Cliente cliente3 = clienteDAO.save(generaCliente());
-
-		productoDAO.save(generaProductoConCliente(cliente1));
-		productoDAO.save(generaProductoConCliente(cliente2));
-		productoDAO.save(generaProductoConCliente(cliente3));
-		productoDAO.save(generaProductoConCliente(cliente1));
-		productoDAO.save(generaProductoConCliente(cliente2));
-		productoDAO.save(generaProductoConCliente(cliente3));
-		productoDAO.save(generaProductoConCliente(cliente1));
-		productoDAO.save(generaProductoConCliente(cliente2));
-		productoDAO.save(generaProductoConCliente(cliente3));
-
-		context.close();
-		System.err.println("Está cerrándose la aplicación");
+//		ProductoDAO productoDAO = context.getBean(ProductoDAO.class);
+//		ClienteDAO clienteDAO = context.getBean(ClienteDAO.class);
+//		Cliente cliente1 = clienteDAO.save(generaCliente());
+//		Cliente cliente2 = clienteDAO.save(generaCliente());
+//		Cliente cliente3 = clienteDAO.save(generaCliente());
+//
+//		productoDAO.save(generaProductoConCliente(cliente1));
+//		productoDAO.save(generaProductoConCliente(cliente2));
+//		productoDAO.save(generaProductoConCliente(cliente3));
+//		productoDAO.save(generaProductoConCliente(cliente1));
+//		productoDAO.save(generaProductoConCliente(cliente2));
+//		productoDAO.save(generaProductoConCliente(cliente3));
+//		productoDAO.save(generaProductoConCliente(cliente1));
+//		productoDAO.save(generaProductoConCliente(cliente2));
+//		productoDAO.save(generaProductoConCliente(cliente3));
+//
+//		context.close();
+//		System.err.println("Está cerrándose la aplicación");
 
 	}
 
