@@ -25,20 +25,37 @@ public class MipapeleriaApplication {
 		System.err.println("Está funcionando la aplicación");
 		log.debug("Está funcionando la aplicación");
 		// Creando clientes
-		ClienteDAO clienteDAO = context.getBean(ClienteDAO.class);
-		clienteDAO.save(generaCliente());
-		clienteDAO.save(generaCliente());
-		clienteDAO.save(generaCliente());
-		List<Cliente> clientes = clienteDAO.findAll();
-		clientes.stream().map(Cliente::toString).forEach(log::info);
+//		ClienteDAO clienteDAO = context.getBean(ClienteDAO.class);
+//		clienteDAO.save(generaCliente());
+//		clienteDAO.save(generaCliente());
+//		clienteDAO.save(generaCliente());
+//		List<Cliente> clientes = clienteDAO.findAll();
+//		clientes.stream().map(Cliente::toString).forEach(log::info);
+//		
+//		//Creando productos
+//		ProductoDAO productoDAO = context.getBean(ProductoDAO.class);
+//		productoDAO.save(generaProducto());
+//		productoDAO.save(generaProducto());
+//		productoDAO.save(generaProducto());
+//		List<Producto> productos = productoDAO.findAll();
+//		productos.stream().map(Producto::toString).forEach(log::info);
 
-		// Creando productos
+		// Creando productos con cliente
 		ProductoDAO productoDAO = context.getBean(ProductoDAO.class);
-		productoDAO.save(generaProducto());
-		productoDAO.save(generaProducto());
-		productoDAO.save(generaProducto());
-		List<Producto> productos = productoDAO.findAll();
-		productos.stream().map(Producto::toString).forEach(log::info);
+		ClienteDAO clienteDAO = context.getBean(ClienteDAO.class);
+		Cliente cliente1 = clienteDAO.save(generaCliente());
+		Cliente cliente2 = clienteDAO.save(generaCliente());
+		Cliente cliente3 = clienteDAO.save(generaCliente());
+
+		productoDAO.save(generaProductoConCliente(cliente1));
+		productoDAO.save(generaProductoConCliente(cliente2));
+		productoDAO.save(generaProductoConCliente(cliente3));
+		productoDAO.save(generaProductoConCliente(cliente1));
+		productoDAO.save(generaProductoConCliente(cliente2));
+		productoDAO.save(generaProductoConCliente(cliente3));
+		productoDAO.save(generaProductoConCliente(cliente1));
+		productoDAO.save(generaProductoConCliente(cliente2));
+		productoDAO.save(generaProductoConCliente(cliente3));
 
 		context.close();
 		System.err.println("Está cerrándose la aplicación");
@@ -59,4 +76,10 @@ public class MipapeleriaApplication {
 		return new Producto(producto);
 	}
 
+	static Producto generaProductoConCliente(Cliente cliente) {
+
+		int numero = 10000;
+		String producto = "Producto" + ThreadLocalRandom.current().nextInt(numero, numero * 20);
+		return new Producto(producto, cliente);
+	}
 }

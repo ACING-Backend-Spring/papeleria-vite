@@ -2,10 +2,12 @@ package es.mde.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,11 +23,20 @@ public class Producto {
 	private String nombre;
 	private boolean pagado;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CLIENTE")
+	private Cliente cliente;
+
 	public Producto() {
 	}
 
 	public Producto(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Producto(String nombre, Cliente cliente) {
+		this.nombre = nombre;
+		this.cliente = cliente;
 	}
 
 	public Long getId() {
@@ -52,4 +63,11 @@ public class Producto {
 		this.pagado = pagado;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 }

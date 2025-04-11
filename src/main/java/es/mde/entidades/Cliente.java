@@ -1,10 +1,15 @@
 package es.mde.entidades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,7 +21,8 @@ public class Cliente {
 	@Column(unique = true)
 	private Long id;
 	private String nombre, correo;
-
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Producto.class, mappedBy = "cliente")
+	private Collection<Producto> productos = new ArrayList<>();
 	public Cliente() {
 	}
 
@@ -49,4 +55,14 @@ public class Cliente {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-}
+	public Collection<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(Collection<Producto> productos) {
+		this.productos = productos;
+	}
+	public void addProducto(Producto producto) {
+		getProductos().add(producto);
+		producto.setCliente(this);
+	}}
