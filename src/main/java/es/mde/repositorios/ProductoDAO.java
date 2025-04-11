@@ -1,11 +1,11 @@
 package es.mde.repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import es.mde.entidades.Producto;
 
-@Repository
-public interface ProductoDAO extends JpaRepository<Producto, Long>{
+@RepositoryRestResource(path = "productos", itemResourceRel = "producto", collectionResourceRel = "productos")
+public interface ProductoDAO extends JpaRepository<Producto, Long> {
 
 }
