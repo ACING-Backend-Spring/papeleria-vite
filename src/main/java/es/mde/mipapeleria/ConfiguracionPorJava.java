@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -29,6 +30,7 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 @PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties" })
 @EnableJpaRepositories("${misRepositorios}") // leer valor de propiedades? pero solo para las entidades anotadas
+@ComponentScan("es.mde.repositorios")//para que escanee los Listener...
 public class ConfiguracionPorJava {
 
 	@Value("${misEntidades}")
