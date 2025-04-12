@@ -30,8 +30,9 @@ import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties" })
-@EnableJpaRepositories("${misRepositorios}") // leer valor de propiedades? pero solo para las entidades anotadas
+@PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties", "classpath:config/gestionBBDD.properties"
+	, "classpath:config/passwordsBD.properties" 
+	})@EnableJpaRepositories("${misRepositorios}") // leer valor de propiedades? pero solo para las entidades anotadas
 @ComponentScan({ "es.mde.repositorios", "es.mde.rest" }) // para que escanee los Listener y los Controller...
 public class ConfiguracionPorJava {
 
