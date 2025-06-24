@@ -39,3 +39,8 @@ tasks.withType(JavaCompile) {
       println "Compiler args: ${options.compilerArgs}"
   }
 }
+
+// Para desplegar en Heroku
+tasks.named("jar") {
+	enabled=false
+}

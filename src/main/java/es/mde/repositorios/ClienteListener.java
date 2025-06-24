@@ -1,6 +1,7 @@
 package es.mde.repositorios;
 
 import jakarta.persistence.PostLoad;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
@@ -44,6 +45,13 @@ public class ClienteListener {
 		} else {
 			System.err.println("Se va a guardar un cliente: " + cliente.getNombre());
 		}
+	}
+	
+	@PostPersist
+	public void postGuardar(Cliente cliente) throws Exception {
+		cliente.setIdString(cliente.getId().toString());
+		System.err.println("Se ha creado al cliente: " + cliente.getNombre() + " con Id " + cliente.getIdString());
+
 	}
 
 	@PostRemove

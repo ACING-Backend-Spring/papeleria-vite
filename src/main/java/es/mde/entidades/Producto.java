@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "PRODUCTOS")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TIPO")
+@DiscriminatorColumn(name = "TIPO_PRODUCTO")
 @DiscriminatorValue("PRODUCTO")
 
 public class Producto {
@@ -29,6 +29,7 @@ public class Producto {
 	@Column(length = 25, name = "nombreproducto") // para ver que podemos limitar los caracteres de esta columna, nombre
 													// de la columna...
 	private String nombre;
+	private String idString, tipo;
 	private boolean pagado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -54,6 +55,14 @@ public class Producto {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String getIdString() {
+		return idString;
+	}
+	
+	public void setIdString(String idString) {
+		this.idString = idString;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -63,6 +72,14 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	public boolean isPagado() {
 		return pagado;
 	}

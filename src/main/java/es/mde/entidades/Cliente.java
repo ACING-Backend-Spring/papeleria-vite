@@ -23,7 +23,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true)
 	private Long id;
-	private String nombre, correo;
+	private String nombre, correo, idString;
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = Producto.class, mappedBy = "cliente")
 	private Collection<Producto> productos = new ArrayList<>();
 
@@ -44,6 +44,14 @@ public class Cliente {
 		this.id = id;
 	}
 
+	public String getIdString() {
+		return idString;
+	}
+	
+	public void setIdString(String idString) {
+		this.idString = idString;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
