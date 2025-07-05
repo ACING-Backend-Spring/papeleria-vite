@@ -42,3 +42,5 @@ out/
 ### Passwords ###
 src/main/resources/config/passwordsBD.properties
 frontend-angular/package-lock.json
+frontend-vite/dev-dist/registerSW.js
+frontend-vite/dev-dist/workbox-54d0af47.js
