@@ -1,0 +1,49 @@
+<hr class='w-100'>
+<div class="row justify-content-end">
+  <button class="btn btn-danger text-white" (click)="ngOnInit()">Todos los productos</button>
+  <button class="btn btn-warning text-white mr-3 ml-3" (click)="mostrarBuscar()">Productos por empresa</button>  <button class="btn btn-primary text-white" routerLink="/productos/formulario">Nuevo Producto
+  </button>
+</div>
+<div class="row justify-content-end mt-2" *ngIf="buscar">
+  <label class="mr-2 mt-2"><b>Empresa (email):</b></label>
+  <input type="text" [(ngModel)]="empresa" name="empresa" placeholder="Nombre de la empresa" />
+  <button class="btn btn-danger text-white mr-3 ml-3" (click)="productosPorEmpresa()">Buscar</button>
+</div>
+<hr class='w-100'>
+<div class="row">
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center"><b>CLIENTE</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-1 col-xl-1 d-flex flex-column text-center">
+    <span><b>TIPO</b></span>
+    <span display="inline-block">
+      <fa-icon [icon]="faBook"></fa-icon>&nbsp;&nbsp;<fa-icon [icon]="faAddressBook" style="color: red;"></fa-icon>
+    </span>
+  </div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center"><b>NOMBRE</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center"><b>AUTOR</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-1 col-xl-1 d-flex flex-column text-center"><b>HOJAS</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-1 col-xl-1 d-flex flex-column text-center"><b>PAGADO</b></div>
+</div>
+<div *ngFor="let producto of productos">
+  <app-producto [producto]="producto" (productoSeleccionado)="verDatos($event)"></app-producto>
+</div>
+<!-- Modal producto-->
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="datosProducto"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="datosProducto"><b>Datos Completos del producto</b> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-producto-ficha *ngIf='productoVerDatos' [producto]='productoVerDatos' (productoEliminar)='onProductoEliminar($event)' (productoEditar)='onProductoEditar($event)'></app-producto-ficha>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="actualizarListado()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

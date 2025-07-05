@@ -1,0 +1,25 @@
+<div *ngFor="let producto of productos">
+  <div class="card">
+    <img class="card-img-top" alt="">
+    <div class="card-body">
+      <h4 class="card-title text-center"><b>{{producto.nombre}}</b></h4>
+      <p class="card-text">
+        <span class="mr-2"><b>Tipo:</b></span>
+        <span>{{producto.tipo}}</span>
+      </p>
+      <p class="card-text" *ngIf='producto.tipo == "Libro"'>
+      <span class="mr-2"><b>Autor:</b></span>
+      <span>{{producto.autor}}</span>
+      </p>
+      <p class="card-text" *ngIf='producto.tipo == "Cuaderno"'>
+      <span class="mr-2"><b>Nº de hojas:</b></span>
+      <span>{{producto.hojas}}</span>
+      </p>
+      <p class="card-text">
+        <span class="mr-2"><b>Pagado</b></span>
+        <span>{{producto.pagado}}</span>
+      </p>
+
+    </div>
+  </div>
+</div>

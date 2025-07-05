@@ -1,0 +1,41 @@
+<hr class='w-100'>
+<div class="row justify-content-end">
+  <button class="btn btn-danger text-white" (click)="ngOnInit()">Todos los clientes</button>
+  <button class="btn btn-warning text-white mr-3 ml-3" (click)="mostrarBuscar()">Clientes por empresa</button>
+  <button class="btn btn-primary text-white" routerLink="/clientes/formulario">Nuevo Cliente</button>
+</div>
+<div class="row justify-content-end mt-2" *ngIf="buscar">
+  <label class="mr-2 mt-2"><b>Empresa (email):</b></label>
+  <input type="text" [(ngModel)]="empresa" name="empresa" placeholder="Nombre de la empresa" />
+  <button class="btn btn-danger text-white mr-3 ml-3" (click)="clientesPorEmpresa()">Buscar</button>
+</div>
+<hr class='w-100'>
+<div class="row">
+  <div class="col-10 col-sm-10 col-md-3 col-lg-5 col-xl-5"><b>NOMBRE</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-4 col-xl-4"><b>CORREO ELECTRÓNICO</b></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3"><b>PRODUCTOS</b></div>
+</div>
+
+<div *ngFor="let cliente of clientes">
+  <app-cliente [cliente]="cliente" (clienteSeleccionado)="verDatos($event)"></app-cliente>
+</div>
+<!-- Modal cliente-->
+<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="datosCliente" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="datosCliente"><b>Datos Completos del Cliente</b> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-cliente-ficha *ngIf='clienteVerDatos' [cliente]='clienteVerDatos'
+          (clienteEliminar)='onClienteEliminar($event)' (clienteEditar)='onClienteEditar($event)'></app-cliente-ficha>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="ngOnInit()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

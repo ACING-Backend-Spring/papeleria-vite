@@ -1,0 +1,24 @@
+<div class="row mb-2">
+  <hr class='w-100'>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center" *ngIf='cliente'><b>{{cliente.nombre | titlecase}}</b>
+  </div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-1 col-xl-1 d-flex flex-column text-center">
+    <div *ngIf='producto.tipo === "Libro"; else elseBlock2'>
+      <fa-icon class="libro" [icon]="faBook" style="color: blue;"></fa-icon><br>Libro
+    </div>
+    <ng-template #elseBlock2>
+      <fa-icon class="cuaderno" [icon]="faAddressBook" style="color: red;"></fa-icon>Cuaderno
+    </ng-template>
+  </div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center"><a class="" data-toggle="modal"
+    data-target="#modalProducto" (click)='productoSeleccionado.emit(producto)'> {{producto.nombre | titlecase}}&nbsp;&nbsp;<fa-icon [icon]="faEdit" class="mr-2"></fa-icon></a></div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 d-flex flex-column text-center">{{producto.autor | titlecase}}</div>
+  <div class="col-10 col-sm-10 col-md-2 col-lg-1 col-xl-1 d-flex flex-column text-center">{{producto.hojas}}</div>
+  <div class="col-10 col-sm-10 col-md-3 col-lg-1 col-xl-1 d-flex flex-column text-center">
+    <div *ngIf='producto.pagado; else elseBlock'>
+      <span><fa-icon class="pagado" [icon]="faCheck" style="color: green;"></fa-icon></span>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <span><fa-icon class="no-pagado" [icon]="faTimes" style="color: red;"></fa-icon></span>
+  </ng-template>

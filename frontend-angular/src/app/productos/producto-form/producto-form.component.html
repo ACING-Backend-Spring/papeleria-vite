@@ -1,0 +1,73 @@
+<form #productoForm="ngForm">
+  <div class="form-row py-2">
+    <div class="col-lg-12 col-md-12">
+      <label><b>TIPO DE PRODUCTO<sup class="text-danger">*</sup></b></label>&nbsp;
+      <input type="radio" name="tipo" [(ngModel)]='producto.tipo' value="Libro" class="mr-2">Libro
+      <input type="radio" name="tipo" [(ngModel)]='producto.tipo' value="Cuaderno" checked class="mr-2">Cuaderno
+    </div>
+  </div>
+  <div class="form-row py-2">
+    <div class="col-lg-4 col-md-12">
+      <label class="mr-2"><b>CLIENTE</b></label>
+      <select name="cliente" id="cliente" [(ngModel)]='producto.cliente'>
+        <option [ngValue]="cliente.url" *ngFor="let cliente of clientes">{{cliente.nombre}}</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <label>Nombre <sup class="text-danger">*</sup></label>
+      <input type="text" class="form-control" [(ngModel)]="producto.nombre" placeholder="Nombre del Producto"
+        name="nombre" required minlength="3" #nombre="ngModel" [ngClass]="{ 'is-invalid': nombre.invalid && (nombre.dirty || nombre.touched),
+        'is-valid': !nombre.invalid }" />
+      <div class="text-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+        <div *ngIf="nombre.errors.required">
+          El Nombre del Producto es obligatorio
+        </div>
+        <div *ngIf="nombre.errors.minlength">
+          El Nombre del Producto debe tener al menos 3 carácteres
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-2">
+    <div class="col-lg-4 col-md-12" *ngIf='producto.tipo == "Libro"'>
+      <label>Autor <sup class="text-danger">*</sup></label>
+      <input type="text" class="form-control" [(ngModel)]="producto.autor" placeholder="Nombre del Autor"
+        name="autor" required minlength="3" #autor="ngModel" [ngClass]="{ 'is-invalid': autor.invalid && (autor.dirty || autor.touched),
+        'is-valid': !autor.invalid }" />
+      <div class="text-danger" *ngIf="autor.invalid && (autor.dirty || autor.touched)">
+        <div *ngIf="autor.errors.required">
+          El Nombre del Autor es obligatorio
+        </div>
+        <div *ngIf="autor.errors.minlength">
+          El Nombre del Autor debe tener al menos 3 carácteres
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12" *ngIf='producto.tipo == "Cuaderno"'>
+      <label>Nº de hojas <sup class="text-danger">*</sup></label>
+      <input type="number" class="form-control" [(ngModel)]="producto.hojas" placeholder="Número de hojas"
+        name="hojas" #hojas="ngModel" [ngClass]="{ 'is-invalid': hojas.invalid && (hojas.dirty || hojas.touched),
+        'is-valid': !hojas.invalid }" />
+      <div class="text-danger" *ngIf="hojas.invalid && (hojas.dirty || hojas.touched)">
+        <div *ngIf="hojas.errors.required">
+          El nº de hojas es obligatorio
+        </div>
+        <div *ngIf="hojas.errors.number">
+          Debe introducir un nº valido
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-12 pt-3">
+      <label class="titulo pr-2"><b>PAGADO</b></label><br>
+      <input type="checkbox" class="form-control" name="pagado" [(ngModel)]='producto.pagado'/>
+    </div>
+
+  </div>
+    <div class="form-row justify-content-between pt-5">
+      <div class="col-lg-5 col-md-12">
+        <button class="btn btn-primary" role="button" (click)="crearProducto()" [disabled]="!productoForm.form.valid">
+          Crear Producto
+        </button>
+      </div>
+    </div>
+</form>
