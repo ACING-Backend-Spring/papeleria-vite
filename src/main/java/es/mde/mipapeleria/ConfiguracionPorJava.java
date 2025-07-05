@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import es.mde.entidades.Cliente;
 import es.mde.entidades.Cuaderno;
 import es.mde.entidades.Libro;
-
+import es.mde.rest.ConfiguracionRest;
 import es.mde.rest.MixIns;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -31,13 +32,21 @@ import jakarta.persistence.EntityManagerFactory;
 @Configuration
 @EnableTransactionManagement
 @PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties", "classpath:config/gestionBBDD.properties"
-	, "classpath:config/passwordsBD.properties" 
-	})@EnableJpaRepositories("${misRepositorios}") // leer valor de propiedades? pero solo para las entidades anotadas
-@ComponentScan({ "es.mde.repositorios", "es.mde.rest" }) // para que escanee los Listener y los Controller...
+//	, "classpath:config/passwordsBD.properties" 
+	})
+@EnableJpaRepositories({"${misRepositorios}", "${entidadSecurity}"}) // leer valor de propiedades pero solo para las entidades anotadas
+@ComponentScan({"${misRepositorios}", "es.mde.rest", "es.mde.security"}) // para que escanee los Listener, los Controller y los servicios...
+@Import(ConfiguracionRest.class)
 public class ConfiguracionPorJava {
 
 	@Value("${misEntidades}")
 	String entidades;
+
+	/**
+	 * Para usar la ruta a escanear entidades de seguridad desde el application.properties
+	 */
+	@Value("${entidadSecurity}")
+	String entidadSecurity;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env,
@@ -48,7 +57,7 @@ public class ConfiguracionPorJava {
 //	    JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter(); // O pedirlo como parametro y que haga el Autowired
 		em.setJpaVendorAdapter(vendorAdapter);
 
-		em.setPackagesToScan(entidades); // leer valor de propiedades? pero solo para las entidades anotadas
+		em.setPackagesToScan(entidades, entidadSecurity); // leer valor de propiedades? pero solo para las entidades anotadas		
 		em.setMappingResources("jpa/Perro.orm.xml", "jpa/Aparato.orm.xml"); // para escanear archivos xml...
 		// leerValorDePropiedades?
 
