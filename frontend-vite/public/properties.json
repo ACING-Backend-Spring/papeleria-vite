@@ -1,0 +1,5 @@
+{
+    "urlApi": "https://puentes-papeleria-dbdd1b61ee98.herokuapp.com/api",
+    "urlApiLocal": "http://localhost:8080/api",
+    "passwordForRegister": "2112"
+}
